@@ -6,6 +6,7 @@
 
 // It helps us to develop asynchronous Javascript code nad keep us safe from problems and error
 
+// Example 1: Simple callback example
 function hello(a, b) {
   b();
   //b is a callback function
@@ -13,4 +14,15 @@ function hello(a, b) {
 
 hello(1, function () {
   console.log("callback chala");
+});
+
+// Example 2: Simulating async operation using setTimeout
+function doSomeAsyncWork(x, y, callback) {
+  setTimeout(function () {
+    callback(x, y);
+  }, 1000);
+}
+
+doSomeAsyncWork(1, 2, function (x, y) {
+  console.log(x + y);
 });
