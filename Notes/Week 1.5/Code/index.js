@@ -45,3 +45,22 @@ kiratsReadFile()
   .catch((err) => {
     console.error("Error reading file:", err);
   });
+
+function kiratsAsyncFunction() {
+  let p = new Promise(function (resolve) {
+    // do some async logic here
+    setTimeout(function () {
+      resolve("hi there!");
+    }, 1000);
+  });
+  return p;
+}
+
+async function main() {
+  // no callbacks, no .then syntax
+  let value = await kiratsAsyncFunction();
+  console.log("hi there1");
+  console.log(value);
+}
+
+main();
