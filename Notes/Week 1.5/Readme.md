@@ -98,3 +98,33 @@ kiratsReadFile().then(onDone)
 [![Slide 11](./Images/Slide11.png)](./Images/Slide11.png)
 
 ## It still uses callbacks under the hood
+
+# Async await
+
+[![Slide 12](./Images/Slide12.png)](./Images/Slide12.png)
+
+function kiratAsyncFunction(){
+let p = new Promise(function(resolve)){
+setTimeout(function(){
+resolve("hi there!")
+},1000)
+}
+return p;
+}
+
+async function main(){
+// no callbacks , no .then syntax
+
+let value = await kiratAsyncFunction();
+console.log("hi there1")
+console.log(value);
+}
+
+main()
+
+# Await is very important here, if we dont write await it returns the promise instead of the value
+
+[![Slide 13](./Images/Slide13.png)](./Images/Slide13.png)
+[![Slide 14](./Images/Slide14.png)](./Images/Slide14.png)
+[![Slide 15](./Images/Slide15.png)](./Images/Slide15.png)
+[![Slide 16](./Images/Slide16.png)](./Images/Slide16.png)
