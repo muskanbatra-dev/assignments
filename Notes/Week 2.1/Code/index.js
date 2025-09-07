@@ -35,3 +35,4 @@ function sumOfSomething(a, b, callbackfunction) {
 }
 
 let ans3 = sumOfSomething(1, 2, square);
+//  A callback is passing a function as an argumentß
