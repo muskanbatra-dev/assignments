@@ -22,3 +22,6 @@ function sumOfCube() {
 
   return square1 + square2;
 }
+
+let ans2 = sumOfCube(1, 2);
+console.log(ans2);
