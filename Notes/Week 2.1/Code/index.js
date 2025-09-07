@@ -34,4 +34,4 @@ function sumOfSomething(a, b, callbackfunction) {
   return square1 + square2;
 }
 
-let ans = sumOfSomething(1, 2);
+let ans3 = sumOfSomething(1, 2, square);
