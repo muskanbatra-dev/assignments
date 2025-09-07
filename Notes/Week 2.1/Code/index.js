@@ -25,3 +25,13 @@ function sumOfCube() {
 
 let ans2 = sumOfCube(1, 2);
 console.log(ans2);
+
+// lets remove the repition of codeß
+
+function sumOfSomething(a, b, callbackfunction) {
+  let square1 = callbackfunction(a);
+  let square2 = callbackfunction(b);
+  return square1 + square2;
+}
+
+let ans = sumOfSomething(1, 2);
