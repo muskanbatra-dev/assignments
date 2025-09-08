@@ -20,3 +20,10 @@
 ### Sending a network request
 
 ### A Dileberate timeout
+
+[![Slide 7](./Images/Slide7.png)](./Images/Slide7.png)
+[![Slide 8](./Images/Slide8.png)](./Images/Slide8.png)
+[![Slide 9](./Images/Slide9.png)](./Images/Slide9.png)
+[![Slide 10](./Images/Slide10.png)](./Images/Slide10.png)
+[![Slide 11](./Images/Slide11.png)](./Images/Slide11.png)
+[![Slide 12](./Images/Slide12.png)](./Images/Slide12.png)
