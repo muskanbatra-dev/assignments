@@ -49,40 +49,28 @@ They run **before the main route handler**.
 const express = require("express");
 const app = express();
 
-// Middleware (example: logging)
-app.use((req, res, next) => {
-  console.log(`Request received: ${req.method} ${req.url}`);
-  next(); // continue to next middleware/route
+app.get("/health-checkup", function (req, res) {
+  res.send("your heart is healthy");
 });
+```
 
-// Health check route
-app.get("/health-checkup", (req, res) => {
-  res.send("Server is healthy 🚑");
-});
-
-// Start the server
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
-🔑 Authentication & Input Validation
+[![Slide 4](./Images/Slide4.png)](./Images/Slide4.png)
+## 🔑  Authentication & Input Validation
 
 
 In the real world, two pre-checks are common:
 
-Authentication → Is the user logged in?
+- Authentication → Is the user logged in?
 
-Input Validation → Are the inputs valid? (e.g., username, kidneyId, etc.)
+- Input Validation → Are the inputs valid? (e.g., username, password, etc.)
 
 🚑 Adding Constraints to a Route
-User must send a kidneyId as a query param (1 or 2, since humans only have 2 kidneys).
+- User must send a kidneyId as a query param (1 or 2, since humans only have 2 kidneys).
 
-User must send username and password in headers.
-
-
-
+- User must send username and password in headers.
 ❌ Ugly Way
 
-```javascript
+```js
 const express = require("express");
 const app = express();
 // Health check route
@@ -103,22 +91,17 @@ app.get("/health-checkup", (req, res) => {
     });
     return;
   }
+  //do something with the kidney here 
   res.json({"Server is healthy 🚑"});
 });
 
-// Start the server
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
-```
 
+```
 [![Slide 4](./Images/Slide4.png)](./Images/Slide4.png)
 
-
-
 # what if i tell you to introduce another route that does kidney replacement
-# inputs need to be the same
 
+# inputs need to be the same
 
 # ugly solution create a new route repeat the same code
 
@@ -127,86 +110,68 @@ const express = require("express");
 
 const app = express();
 
-app.get("/health-checkup",()=>{
-  // do health check ups 
+app.get("/health-checkup", () => {
+  // do health check ups
   const kidneyId = req.query.kidneyId;
   const username = req.headers.username;
   const password = req.headers.password;
 
-  if(username != "harkirat" && password != "pass"){
+  if (username != "harkirat" && password != "pass") {
     res.status(403).json({
-      msg:"user dosent exist"
-    })
+      msg: "user dosent exist",
+    });
     return;
-
   }
-if(kidneyId != 1 && kidneyId != 2){
-  res.status(411).json({
-msg:"wrong input"
-  });
-  return;
-}
+  if (kidneyId != 1 && kidneyId != 2) {
+    res.status(411).json({
+      msg: "wrong input",
+    });
+    return;
+  }
 
-res.send("your heart is healthy")
-})
-
+  res.send("your heart is healthy");
+});
 
 // craeting a new route
 
-app.put("/replace-kidney",(req,res)=>{
-// do health checkls here
-const kidneyId = req.query.kidneyId;
-const username = req.query.userrname;
-const password = req.query.password;
+app.put("/replace-kidney", (req, res) => {
+  // do health checkls here
+  const kidneyId = req.query.kidneyId;
+  const username = req.query.userrname;
+  const password = req.query.password;
 
-if(username != "harkirat" && password!="pass"){
-  res.status(403).json({
-    msg:"User dosent exist"
-  })
-  return;
+  if (username != "harkirat" && password != "pass") {
+    res.status(403).json({
+      msg: "User dosent exist",
+    });
+    return;
+  }
 
-}
+  if (kidneyId != 1 && kidneyId != 2) {
+    res.status(411).json({
+      msg: "wrong input",
+    });
+    return;
+  }
+  // do kidney replacement here
 
-if(kidneyId != 1 && kidneyId !=2){
-  res.status(411).json({
-    msg:"wrong input"
-  })
-  return;
-}
-// do kidney replacement here 
-
-res.send("your heart is healthy")
-})
+  res.send("your heart is healthy");
+});
 ```
 
 [![Slide 5](./Images/Slide5.png)](./Images/Slide5.png)
-# THERE IS A PROBLEM HERE DONT REPEAT YOUR SELF
+
+## ⚠️ The DRY Problem (Don’t Repeat Yourself)
+
+
+When we add multiple routes, we start repeating the same checks.
+This makes the code messy and unmaintainable.
+
+✅ Better Way: Wrapper Functions
 
 ## Single better solution create a wrapper function
 
 
-
-```javascript
-const express = require("express");
-const app = express();
-
-app.get("/health-checkup", (req, res) => {
-  const kidneyId = req.query.kidneyId;
-  const username = req.headers.username;
-  const password = req.headers.password;
-
-  if (username !== "harkirat" || password !== "pass") {
-    return res.status(400).json({ msg: "User doesn't exist" });
-  }
-  if (kidneyId != 1 && kidneyId != 2) {
-    return res.status(400).json({ msg: "Wrong input" });
-  }
-
-  res.json({ msg: "Server is healthy 🚑" });
-});
-
-app.listen(3000, () => console.log("Server running on port 3000"));
-⚠️ The DRY Problem (Don’t Repeat Yourself)
 
 
 When we add multiple routes, we start repeating the same checks.
@@ -220,7 +185,6 @@ js
 
 # ugly solution create a new route repeat the same code
 
-```javascript
 const express = require("express");
 
 const app = express();
@@ -374,4 +338,4 @@ Validation = ensures inputs are valid.
 Global Catches = prevent server crashes.
 
 Zod = simplifies validation with schemas.
-```
+````
