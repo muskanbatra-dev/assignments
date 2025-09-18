@@ -10,15 +10,16 @@
 6. [Better Way: Wrapper Functions](#-better-way-wrapper-functions)
 7. [Ideal Solution: Middleware](#-ideal-solution-middleware)
 8. [Understanding next()](#-understanding-next)
-9. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
-10. [Global Middleware with app.use()](#-global-middleware-with-appuse)
-11. [The Need for Error Handling](#️-the-need-for-error-handling)
-12. [Global Error Handling Middleware](#️-global-error-handling-middleware)
-13. [Why Input Validation?](#-why-input-validation)
-14. [Zod for Input Validation](#-zod-for-input-validation)
-15. [Example: Zod Schema](#-example-zod-schema)
-16. [Combining Zod with Middleware](#-combining-zod-with-middleware)
-17. [Summary](#-summary)
+9. [Difference between res.send() and res.json()](#-difference between res.send() and res.json())
+10. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
+11. [Global Middleware with app.use()](#-global-middleware-with-appuse)
+12. [The Need for Error Handling](#️-the-need-for-error-handling)
+13. [Global Error Handling Middleware](#️-global-error-handling-middleware)
+14. [Why Input Validation?](#-why-input-validation)
+15. [Zod for Input Validation](#-zod-for-input-validation)
+16. [Example: Zod Schema](#-example-zod-schema)
+17. [Combining Zod with Middleware](#-combining-zod-with-middleware)
+18. [Summary](#-summary)
 
 ---
 
@@ -40,6 +41,7 @@ Imagine a hospital:
 They run **before the main route handler**.
 
 [![Slide 2](./Images/Slide2.png)](./Images/Slide2.png)
+[![Slide 3](./Images/Slide3.png)](./Images/Slide3.png)
 
 ---
 
@@ -55,6 +57,8 @@ app.get("/health-checkup", function (req, res) {
 ```
 
 [![Slide 4](./Images/Slide4.png)](./Images/Slide4.png)
+[![Slide 5](./Images/Slide5.png)](./Images/Slide5.png)
+[![Slide 6](./Images/Slide6.png)](./Images/Slide6.png)
 
 ## 🔑 Authentication & Input Validation
 
@@ -66,10 +70,14 @@ In the real world, two pre-checks are common:
 
 ## 🚑 Adding Constraints to a Route
 
+[![Slide 7](./Images/Slide7.png)](./Images/Slide7.png)
+
 - User must send a kidneyId as a query param (1 or 2, since humans only have 2 kidneys).
 
 - User must send username and password in headers.
   ❌ Ugly Way
+  [![Slide 8](./Images/Slide8.png)](./Images/Slide8.png)
+  [![Slide 9](./Images/Slide9.png)](./Images/Slide9.png)
 
 ```js
 const express = require("express");
@@ -99,7 +107,8 @@ app.get("/health-checkup", (req, res) => {
 
 ```
 
-[![Slide 4](./Images/Slide4.png)](./Images/Slide4.png)
+[![Slide 10](./Images/Slide10.png)](./Images/Slide10.png)
+[![Slide 11](./Images/Slide11.png)](./Images/Slide11.png)
 
 ## ⚠️ The DRY Problem (Don’t Repeat Yourself)
 
@@ -166,10 +175,9 @@ app.put("/replace-kidney", (req, res) => {
 });
 ```
 
-[![Slide 5](./Images/Slide5.png)](./Images/Slide5.png)
-
 ## ✅ Better Way: Wrapper Functions
 
+[![Slide 12](./Images/Slide12.png)](./Images/Slide12.png)
 When we add multiple routes, we start repeating the same checks.
 This makes the code messy and unmaintainable.
 
@@ -203,47 +211,51 @@ function kidneyValidator() {
 
 ## 🚀 Ideal Solution: Middleware
 
+[![Slide 13](./Images/Slide13.png)](./Images/Slide13.png)
+
 ```js
 function userMiddleware(req, res, next) {
-const { username, password } = req.headers;
-if (username !== "harkirat" || password !== "pass") {
-return res.status(403).json({ msg: "Incorrect inputs" });
-}
-next();
+  const { username, password } = req.headers;
+  if (username !== "harkirat" || password !== "pass") {
+    return res.status(403).json({ msg: "Incorrect inputs" });
+  }
+  next();
 }
 
 function kidneyMiddleware(req, res, next) {
-const { kidneyId } = req.query;
-if (kidneyId != 1 && kidneyId != 2) {
-return res.status(403).json({ msg: "Incorrect kidneyId" });
+  const { kidneyId } = req.query;
+  if (kidneyId != 1 && kidneyId != 2) {
+    return res.status(403).json({ msg: "Incorrect kidneyId" });
+  }
+  next();
 }
-next();
-}
+// you can even give two callback functions
 
 app.get("/health-checkup", userMiddleware, kidneyMiddleware, (req, res) => {
-res.send("Your heart is healthy ❤️");
+  res.send("Your heart is healthy ❤️");
 });
 ```
+
 ## 🔄 Understanding next()
 
 - next() lets Express know the middleware finished its job.
-
+- next() is called when everything is correct.
 - Without next(), the request never reaches the route handler.
 
 ## 📊 Example: Counting Requests (Middleware Use Case)
 
 ```js
-Copy code
 let requestCount = 0;
 
 app.use((req, res, next) => {
-requestCount++;
-console.log("Total requests so far:", requestCount);
-next();
+  requestCount++;
+  console.log("Total requests so far:", requestCount);
+  next();
 });
 
 app.get("/", (req, res) => res.send("Hello World"));
 ```
+
 ## 🌍 Global Middleware with app.use()
 
 - app.use() applies middleware to all routes.
@@ -253,11 +265,12 @@ app.get("/", (req, res) => res.send("Hello World"));
 js
 Copy code
 app.use(express.json());
-⚠️ The Need for Error Handling
+
+## ⚠️ The Need for Error Handling
 
 Without global catches, one small bug (like dividing by zero) can crash the server.
 
-🛡️ Global Error Handling Middleware
+## 🛡️ Global Error Handling Middleware
 
 Express lets you define a special middleware with 4 params:
 
@@ -269,7 +282,7 @@ res.status(500).json({ msg: "Something went wrong!" });
 });
 👉 This ensures the server doesn’t crash on errors.
 
-📏 Why Input Validation?
+## 📏 Why Input Validation?
 
 Prevent invalid requests from reaching logic.
 
@@ -277,12 +290,12 @@ Protect against crashes and bad data.
 
 Example: missing username, invalid kidneyId, etc.
 
-🧰 Zod for Input Validation
+## 🧰 Zod for Input Validation
 
 Zod is a TypeScript-first validation library.
 It allows you to define schemas and validate incoming data easily.
 
-✅ Example: Zod Schema
+## ✅ Example: Zod Schema
 
 js
 Copy code
@@ -302,7 +315,8 @@ return res.status(400).json({ msg: "Invalid input", errors: result.error });
 }
 res.json({ msg: "Validation passed ✅" });
 });
-🛡️ Combining Zod with Middleware
+
+## 🛡️ Combining Zod with Middleware
 
 js
 Copy code
@@ -317,7 +331,9 @@ next();
 app.post("/checkup", validateUser, (req, res) => {
 res.send("Checkup completed ✅");
 });
-📚 Summary
+
+## 📚 Summary
+
 Middleware = pre-checks before route logic.
 
 Authentication = checks if the user is allowed.
