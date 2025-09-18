@@ -179,8 +179,9 @@ app.put("/replace-kidney", (req, res) => {
 ## ✅ Better Way: Wrapper Functions
 
 [![Slide 12](./Images/Slide12.png)](./Images/Slide12.png)
-When we add multiple routes, we start repeating the same checks.
-This makes the code messy and unmaintainable.
+
+- When we add multiple routes, we start repeating the same checks.
+- This makes the code messy and unmaintainable.
 
 # what if i tell you to introduce another route that does kidney replacement
 
@@ -249,23 +250,25 @@ app.get("/health-checkup", userMiddleware, kidneyMiddleware, (req, res) => {
 [![Slide 14](./Images/Slide14.png)](./Images/Slide14.png)
 
 - app.use() applies middleware to all routes.
+- if i know a middleware that will be used in every route i will call app.use()
 
 - Example: express.json() parses JSON automatically.
 
-js
-Copy code
+```js
+const app = express();
 app.use(express.json());
+```
 
 ## 📊 Example: Counting Requests (Middleware Use Case)
 
 [![Slide 15](./Images/Slide15.png)](./Images/Slide15.png)
 
 ```js
-let requestCount = 0;
+let numberOfRequests = 0;
 
 app.use((req, res, next) => {
-  requestCount++;
-  console.log("Total requests so far:", requestCount);
+  numberOfRequests++;
+  console.log("Total requests so far:", numberOfRequests);
   next();
 });
 
@@ -283,13 +286,10 @@ app.get("/", (req, res) => res.send("Hello World"));
 [![Slide 17](./Images/Slide17.png)](./Images/Slide17.png)
 Express lets you define a special middleware with 4 params:
 
-js
-Copy code
-app.use((err, req, res, next) => {
-console.error(err.stack);
-res.status(500).json({ msg: "Something went wrong!" });
-});
-👉 This ensures the server doesn’t crash on errors.
+```js
+const app = express();
+app.use(express.json());
+```
 
 ## 📏 Why Input Validation?
 
@@ -300,6 +300,11 @@ Protect against crashes and bad data.
 
 Example: missing username, invalid kidneyId, etc.
 
+```js
+const app = express();
+app.use(express.json());
+```
+
 ## 🧰 Zod for Input Validation
 
 [![Slide 19](./Images/Slide19.png)](./Images/Slide19.png)
@@ -308,49 +313,33 @@ Example: missing username, invalid kidneyId, etc.
 Zod is a TypeScript-first validation library.
 It allows you to define schemas and validate incoming data easily.
 
+```js
+const app = express();
+app.use(express.json());
+```
+
 ## ✅ Example: Zod Schema
 
 [![Slide 22](./Images/Slide22.png)](./Images/Slide22.png)
 [![Slide 23](./Images/Slide23.png)](./Images/Slide23.png)
 [![Slide 24](./Images/Slide24.png)](./Images/Slide24.png)
 [![Slide 25](./Images/Slide25.png)](./Images/Slide25.png)
-js
-Copy code
-const { z } = require("zod");
 
-const userSchema = z.object({
-username: z.string(),
-password: z.string(),
-kidneyId: z.number().min(1).max(2),
-});
-
-// Example validation
-app.post("/validate", (req, res) => {
-const result = userSchema.safeParse(req.body);
-if (!result.success) {
-return res.status(400).json({ msg: "Invalid input", errors: result.error });
-}
-res.json({ msg: "Validation passed ✅" });
-});
+```js
+const app = express();
+app.use(express.json());
+```
 
 ## 🛡️ Combining Zod with Middleware
 
 [![Slide 26](./Images/Slide26.png)](./Images/Slide26.png)
 [![Slide 27](./Images/Slide27.png)](./Images/Slide27.png)
 [![Slide 28](./Images/Slide28.png)](./Images/Slide28.png)
-js
-Copy code
-function validateUser(req, res, next) {
-const result = userSchema.safeParse(req.body);
-if (!result.success) {
-return res.status(400).json({ msg: "Invalid input", errors: result.error });
-}
-next();
-}
 
-app.post("/checkup", validateUser, (req, res) => {
-res.send("Checkup completed ✅");
-});
+```js
+const app = express();
+app.use(express.json());
+```
 
 ## 📚 Summary
 
@@ -363,6 +352,10 @@ Validation = ensures inputs are valid.
 Global Catches = prevent server crashes.
 
 Zod = simplifies validation with schemas.
+
+```
+
+```
 
 ```
 
