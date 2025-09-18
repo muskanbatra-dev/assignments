@@ -10,16 +10,17 @@
 6. [Better Way: Wrapper Functions](#-better-way-wrapper-functions)
 7. [Ideal Solution: Middleware](#-ideal-solution-middleware)
 8. [Understanding next()](#-understanding-next)
-9. [Difference between res.send() and res.json()](#-difference between res.send() and res.json())
-10. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
-11. [Global Middleware with app.use()](#-global-middleware-with-appuse)
-12. [The Need for Error Handling](#️-the-need-for-error-handling)
-13. [Global Error Handling Middleware](#️-global-error-handling-middleware)
-14. [Why Input Validation?](#-why-input-validation)
-15. [Zod for Input Validation](#-zod-for-input-validation)
-16. [Example: Zod Schema](#-example-zod-schema)
-17. [Combining Zod with Middleware](#-combining-zod-with-middleware)
-18. [Summary](#-summary)
+9. [Difference between res.send() and res.json()](<#-difference-between-res.send()-and-res.json()>)
+10. [Importance of app.use(express.json())](<#-difference-between-res.send()-and-res.json()>)
+11. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
+12. [Global Middleware with app.use()](#-global-middleware-with-appuse)
+13. [The Need for Error Handling](#️-the-need-for-error-handling)
+14. [Global Error Handling Middleware](#️-global-error-handling-middleware)
+15. [Why Input Validation?](#-why-input-validation)
+16. [Zod for Input Validation](#-zod-for-input-validation)
+17. [Example: Zod Schema](#-example-zod-schema)
+18. [Combining Zod with Middleware](#-combining-zod-with-middleware)
+19. [Summary](#-summary)
 
 ---
 
@@ -212,6 +213,19 @@ function kidneyValidator() {
 ## 🚀 Ideal Solution: Middleware
 
 [![Slide 13](./Images/Slide13.png)](./Images/Slide13.png)
+[![Slide 16](./Images/Slide16.png)](./Images/Slide16.png)
+[![Slide 17](./Images/Slide17.png)](./Images/Slide17.png)
+[![Slide 18](./Images/Slide18.png)](./Images/Slide18.png)
+[![Slide 19](./Images/Slide19.png)](./Images/Slide19.png)
+[![Slide 20](./Images/Slide20.png)](./Images/Slide20.png)
+[![Slide 21](./Images/Slide21.png)](./Images/Slide21.png)
+[![Slide 22](./Images/Slide22.png)](./Images/Slide22.png)
+[![Slide 23](./Images/Slide23.png)](./Images/Slide23.png)
+[![Slide 24](./Images/Slide24.png)](./Images/Slide24.png)
+[![Slide 25](./Images/Slide25.png)](./Images/Slide25.png)
+[![Slide 26](./Images/Slide26.png)](./Images/Slide26.png)
+[![Slide 27](./Images/Slide27.png)](./Images/Slide27.png)
+[![Slide 28](./Images/Slide28.png)](./Images/Slide28.png)
 
 ```js
 function userMiddleware(req, res, next) {
@@ -242,7 +256,21 @@ app.get("/health-checkup", userMiddleware, kidneyMiddleware, (req, res) => {
 - next() is called when everything is correct.
 - Without next(), the request never reaches the route handler.
 
+## 🌍 Global Middleware with app.use()
+
+[![Slide 14](./Images/Slide14.png)](./Images/Slide14.png)
+
+- app.use() applies middleware to all routes.
+
+- Example: express.json() parses JSON automatically.
+
+js
+Copy code
+app.use(express.json());
+
 ## 📊 Example: Counting Requests (Middleware Use Case)
+
+[![Slide 15](./Images/Slide15.png)](./Images/Slide15.png)
 
 ```js
 let requestCount = 0;
@@ -256,22 +284,15 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => res.send("Hello World"));
 ```
 
-## 🌍 Global Middleware with app.use()
-
-- app.use() applies middleware to all routes.
-
-- Example: express.json() parses JSON automatically.
-
-js
-Copy code
-app.use(express.json());
-
 ## ⚠️ The Need for Error Handling
 
-Without global catches, one small bug (like dividing by zero) can crash the server.
+[![Slide 16](./Images/Slide16.png)](./Images/Slide16.png)
+
+- Without global catches, one small bug (like dividing by zero) can crash the server.
 
 ## 🛡️ Global Error Handling Middleware
 
+[![Slide 17](./Images/Slide17.png)](./Images/Slide17.png)
 Express lets you define a special middleware with 4 params:
 
 js
@@ -284,6 +305,7 @@ res.status(500).json({ msg: "Something went wrong!" });
 
 ## 📏 Why Input Validation?
 
+[![Slide 18](./Images/Slide18.png)](./Images/Slide18.png)
 Prevent invalid requests from reaching logic.
 
 Protect against crashes and bad data.
