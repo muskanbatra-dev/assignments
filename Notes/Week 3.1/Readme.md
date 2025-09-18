@@ -213,19 +213,7 @@ function kidneyValidator() {
 ## 🚀 Ideal Solution: Middleware
 
 [![Slide 13](./Images/Slide13.png)](./Images/Slide13.png)
-[![Slide 16](./Images/Slide16.png)](./Images/Slide16.png)
-[![Slide 17](./Images/Slide17.png)](./Images/Slide17.png)
-[![Slide 18](./Images/Slide18.png)](./Images/Slide18.png)
-[![Slide 19](./Images/Slide19.png)](./Images/Slide19.png)
-[![Slide 20](./Images/Slide20.png)](./Images/Slide20.png)
-[![Slide 21](./Images/Slide21.png)](./Images/Slide21.png)
-[![Slide 22](./Images/Slide22.png)](./Images/Slide22.png)
-[![Slide 23](./Images/Slide23.png)](./Images/Slide23.png)
-[![Slide 24](./Images/Slide24.png)](./Images/Slide24.png)
-[![Slide 25](./Images/Slide25.png)](./Images/Slide25.png)
-[![Slide 26](./Images/Slide26.png)](./Images/Slide26.png)
-[![Slide 27](./Images/Slide27.png)](./Images/Slide27.png)
-[![Slide 28](./Images/Slide28.png)](./Images/Slide28.png)
+[![Slide 14](./Images/Slide14.png)](./Images/Slide14.png)
 
 ```js
 function userMiddleware(req, res, next) {
@@ -314,11 +302,18 @@ Example: missing username, invalid kidneyId, etc.
 
 ## 🧰 Zod for Input Validation
 
+[![Slide 19](./Images/Slide19.png)](./Images/Slide19.png)
+[![Slide 20](./Images/Slide20.png)](./Images/Slide20.png)
+[![Slide 21](./Images/Slide21.png)](./Images/Slide21.png)
 Zod is a TypeScript-first validation library.
 It allows you to define schemas and validate incoming data easily.
 
 ## ✅ Example: Zod Schema
 
+[![Slide 22](./Images/Slide22.png)](./Images/Slide22.png)
+[![Slide 23](./Images/Slide23.png)](./Images/Slide23.png)
+[![Slide 24](./Images/Slide24.png)](./Images/Slide24.png)
+[![Slide 25](./Images/Slide25.png)](./Images/Slide25.png)
 js
 Copy code
 const { z } = require("zod");
@@ -340,6 +335,9 @@ res.json({ msg: "Validation passed ✅" });
 
 ## 🛡️ Combining Zod with Middleware
 
+[![Slide 26](./Images/Slide26.png)](./Images/Slide26.png)
+[![Slide 27](./Images/Slide27.png)](./Images/Slide27.png)
+[![Slide 28](./Images/Slide28.png)](./Images/Slide28.png)
 js
 Copy code
 function validateUser(req, res, next) {
