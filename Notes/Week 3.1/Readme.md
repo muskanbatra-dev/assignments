@@ -23,7 +23,7 @@
 ---
 
 ## 📌 What is Middleware?
- 
+
 [![Slide 1](./Images/Slide1.png)](./Images/Slide1.png)
 
 Imagine a hospital:
@@ -55,8 +55,8 @@ app.get("/health-checkup", function (req, res) {
 ```
 
 [![Slide 4](./Images/Slide4.png)](./Images/Slide4.png)
-## 🔑  Authentication & Input Validation
 
+## 🔑 Authentication & Input Validation
 
 In the real world, two pre-checks are common:
 
@@ -64,11 +64,12 @@ In the real world, two pre-checks are common:
 
 - Input Validation → Are the inputs valid? (e.g., username, password, etc.)
 
-🚑 Adding Constraints to a Route
+## 🚑 Adding Constraints to a Route
+
 - User must send a kidneyId as a query param (1 or 2, since humans only have 2 kidneys).
 
 - User must send username and password in headers.
-❌ Ugly Way
+  ❌ Ugly Way
 
 ```js
 const express = require("express");
@@ -91,19 +92,25 @@ app.get("/health-checkup", (req, res) => {
     });
     return;
   }
-  //do something with the kidney here 
+  //do something with the kidney here
   res.json({"Server is healthy 🚑"});
 });
 
 
 ```
+
 [![Slide 4](./Images/Slide4.png)](./Images/Slide4.png)
+
+## ⚠️ The DRY Problem (Don’t Repeat Yourself)
 
 # what if i tell you to introduce another route that does kidney replacement
 
 # inputs need to be the same
 
 # ugly solution create a new route repeat the same code
+
+When we add multiple routes, we start repeating the same checks.
+This makes the code messy and unmaintainable.
 
 ```javascript
 const express = require("express");
@@ -161,126 +168,108 @@ app.put("/replace-kidney", (req, res) => {
 
 [![Slide 5](./Images/Slide5.png)](./Images/Slide5.png)
 
-## ⚠️ The DRY Problem (Don’t Repeat Yourself)
-
-
-When we add multiple routes, we start repeating the same checks.
-This makes the code messy and unmaintainable.
-
-✅ Better Way: Wrapper Functions
-
-## Single better solution create a wrapper function
-
-
-
+## ✅ Better Way: Wrapper Functions
 
 When we add multiple routes, we start repeating the same checks.
 This makes the code messy and unmaintainable.
 
-✅ Better Way: Wrapper Functions
-js
 # what if i tell you to introduce another route that does kidney replacement
-# inputs need to be the same
 
+# inputs need to be the same
 
 # ugly solution create a new route repeat the same code
 
+```javascript
 const express = require("express");
 
 const app = express();
 
-function usernameValidater (){
-  if (username != "harkirat" && password != "pass" ){
+function usernameValidater() {
+  if (username != "harkirat" && password != "pass") {
     return false;
-
   }
   return true;
 }
 
-function kidneyValidator(){
-  if(kidneyId != 1 && kidneyId != 2){
-    return false
+function kidneyValidator() {
+  if (kidneyId != 1 && kidneyId != 2) {
+    return false;
   }
-  return true
-}```
+  return true;
+}
+```
+
 👉 Slightly better, but still repetitive across routes.
 
-🚀 Ideal Solution: Middleware
+## 🚀 Ideal Solution: Middleware
 
-
-js
-Copy code
+```js
 function userMiddleware(req, res, next) {
-  const { username, password } = req.headers;
-  if (username !== "harkirat" || password !== "pass") {
-    return res.status(403).json({ msg: "Incorrect inputs" });
-  }
-  next();
+const { username, password } = req.headers;
+if (username !== "harkirat" || password !== "pass") {
+return res.status(403).json({ msg: "Incorrect inputs" });
+}
+next();
 }
 
 function kidneyMiddleware(req, res, next) {
-  const { kidneyId } = req.query;
-  if (kidneyId != 1 && kidneyId != 2) {
-    return res.status(403).json({ msg: "Incorrect kidneyId" });
-  }
-  next();
+const { kidneyId } = req.query;
+if (kidneyId != 1 && kidneyId != 2) {
+return res.status(403).json({ msg: "Incorrect kidneyId" });
+}
+next();
 }
 
 app.get("/health-checkup", userMiddleware, kidneyMiddleware, (req, res) => {
-  res.send("Your heart is healthy ❤️");
+res.send("Your heart is healthy ❤️");
 });
-🔄 Understanding next()
+```
+## 🔄 Understanding next()
 
+- next() lets Express know the middleware finished its job.
 
-next() lets Express know the middleware finished its job.
+- Without next(), the request never reaches the route handler.
 
-Without next(), the request never reaches the route handler.
+## 📊 Example: Counting Requests (Middleware Use Case)
 
-📊 Example: Counting Requests (Middleware Use Case)
-
-
-js
+```js
 Copy code
 let requestCount = 0;
 
 app.use((req, res, next) => {
-  requestCount++;
-  console.log("Total requests so far:", requestCount);
-  next();
+requestCount++;
+console.log("Total requests so far:", requestCount);
+next();
 });
 
 app.get("/", (req, res) => res.send("Hello World"));
-🌍 Global Middleware with app.use()
+```
+## 🌍 Global Middleware with app.use()
 
+- app.use() applies middleware to all routes.
 
-app.use() applies middleware to all routes.
-
-Example: express.json() parses JSON automatically.
+- Example: express.json() parses JSON automatically.
 
 js
 Copy code
 app.use(express.json());
 ⚠️ The Need for Error Handling
 
-
-
 Without global catches, one small bug (like dividing by zero) can crash the server.
 
 🛡️ Global Error Handling Middleware
-
 
 Express lets you define a special middleware with 4 params:
 
 js
 Copy code
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ msg: "Something went wrong!" });
+console.error(err.stack);
+res.status(500).json({ msg: "Something went wrong!" });
 });
 👉 This ensures the server doesn’t crash on errors.
 
 📏 Why Input Validation?
-
 
 Prevent invalid requests from reaching logic.
 
@@ -300,33 +289,33 @@ Copy code
 const { z } = require("zod");
 
 const userSchema = z.object({
-  username: z.string(),
-  password: z.string(),
-  kidneyId: z.number().min(1).max(2),
+username: z.string(),
+password: z.string(),
+kidneyId: z.number().min(1).max(2),
 });
 
 // Example validation
 app.post("/validate", (req, res) => {
-  const result = userSchema.safeParse(req.body);
-  if (!result.success) {
-    return res.status(400).json({ msg: "Invalid input", errors: result.error });
-  }
-  res.json({ msg: "Validation passed ✅" });
+const result = userSchema.safeParse(req.body);
+if (!result.success) {
+return res.status(400).json({ msg: "Invalid input", errors: result.error });
+}
+res.json({ msg: "Validation passed ✅" });
 });
 🛡️ Combining Zod with Middleware
 
 js
 Copy code
 function validateUser(req, res, next) {
-  const result = userSchema.safeParse(req.body);
-  if (!result.success) {
-    return res.status(400).json({ msg: "Invalid input", errors: result.error });
-  }
-  next();
+const result = userSchema.safeParse(req.body);
+if (!result.success) {
+return res.status(400).json({ msg: "Invalid input", errors: result.error });
+}
+next();
 }
 
 app.post("/checkup", validateUser, (req, res) => {
-  res.send("Checkup completed ✅");
+res.send("Checkup completed ✅");
 });
 📚 Summary
 Middleware = pre-checks before route logic.
@@ -338,4 +327,7 @@ Validation = ensures inputs are valid.
 Global Catches = prevent server crashes.
 
 Zod = simplifies validation with schemas.
-````
+
+```
+
+```
