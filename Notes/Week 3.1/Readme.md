@@ -10,10 +10,10 @@
 6. [Better Way: Wrapper Functions](#-better-way-wrapper-functions)
 7. [Ideal Solution: Middleware](#-ideal-solution-middleware)
 8. [Understanding next()](#-understanding-next)
-9. [Difference between res.send() and res.json()](<#-difference-between-res.send()-and-res.json()>)
-10. [Importance of app.use(express.json())](<#-difference-between-res.send()-and-res.json()>)
-11. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
-12. [Global Middleware with app.use()](#-global-middleware-with-appuse)
+9. [Difference between res.send() and res.json()](#difference-between-ressend-and-resjson)
+10. [Importance of app.use(express.json())](#importance-of-appuseexpressjson)
+11. [Middleware and req.body](#middleware-and-req.body)
+12. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
 13. [The Need for Error Handling](#️-the-need-for-error-handling)
 14. [Global Error Handling Middleware](#️-global-error-handling-middleware)
 15. [Why Input Validation?](#-why-input-validation)
@@ -76,9 +76,9 @@ In the real world, two pre-checks are common:
 - User must send a kidneyId as a query param (1 or 2, since humans only have 2 kidneys).
 
 - User must send username and password in headers.
-  ❌ Ugly Way
   [![Slide 8](./Images/Slide8.png)](./Images/Slide8.png)
   [![Slide 9](./Images/Slide9.png)](./Images/Slide9.png)
+  ❌ Ugly Way
 
 ```js
 const express = require("express");
@@ -245,19 +245,48 @@ app.get("/health-checkup", userMiddleware, kidneyMiddleware, (req, res) => {
 - next() is called when everything is correct.
 - Without next(), the request never reaches the route handler.
 
-## 🌍 Global Middleware with app.use()
+## Difference between res.send() and res.json()
+
+-
+
+## Importance of app.use(express.json())
 
 [![Slide 14](./Images/Slide14.png)](./Images/Slide14.png)
 
 - app.use() applies middleware to all routes.
 - if i know a middleware that will be used in every route i will call app.use()
 
+### IT IS A MIDDLEWARE THAT PARSES INCOMING JSON PAYLOADS IN THE REQUEST BODY
+
+### IT IS CRUCIAL WHILE DEALING WHEN DEALING WITH JSON DATA SENT IN REQUEST BODY , TYPICALLY IN PUT OR POST REQUESTS
+
+### WITHOUT THIS MIDDLEWARE , YOU MIGHT NOT RECEIVE THE JSON DATA AS A RAW STRING , AND YOU NEED TO MANUALLY PARSE IT
+
 - Example: express.json() parses JSON automatically.
 
 ```js
-const app = express();
-app.use(express.json());
+const express = require("express");
+const app = express()
+
+
+app.use(express.json();)// Middleware to parse json in the request body
+
+app.post("/",(req, res)=>{
+  const jsonData = req.body;
+  // now req.body contains the parsed json data
+  // process the data
+
+  res.json({success:true});
+})
 ```
+
+## Middleware and req.body
+
+- req.query and req.headers dont require middleware because the represent the query parameters and headers of the incoming request , respectively. Express automatically parses them.
+
+- req.body requires middlewares like express.json() to parse the request body especially when the body contains JSON data . Other middlewares like express.urlencoded() is used for prasing from data in the request body.
+
+- Middleware helps in processing the request at different stages and is essential for tasks like parsing , logging , authentication and more in a more modular and organized way
 
 ## 📊 Example: Counting Requests (Middleware Use Case)
 
