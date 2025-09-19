@@ -10,9 +10,9 @@
 6. [Better Way: Wrapper Functions](#-better-way-wrapper-functions)
 7. [Ideal Solution: Middleware](#-ideal-solution-middleware)
 8. [Understanding next()](#-understanding-next)
-9. [Difference between res.send() and res.json()](#difference-between-ressend-and-resjson)
-10. [Importance of app.use(express.json())](#importance-of-appuseexpressjson)
-11. [Middleware and req.body](#middleware-and-req.body)
+9. [Difference between res.send() and res.json()](#-difference-between-ressend-and-resjson)
+10. [Importance of app.use(express.json())](#-importance-of-appuseexpressjson)
+11. [Middleware and req.body](#-middleware-and-reqbody)
 12. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
 13. [The Need for Error Handling](#️-the-need-for-error-handling)
 14. [Global Error Handling Middleware](#️-global-error-handling-middleware)
@@ -245,11 +245,11 @@ app.get("/health-checkup", userMiddleware, kidneyMiddleware, (req, res) => {
 - next() is called when everything is correct.
 - Without next(), the request never reaches the route handler.
 
-## Difference between res.send() and res.json()
+## 🔍 Difference between res.send() and res.json()
 
 -
 
-## Importance of app.use(express.json())
+## 📦 Importance of app.use(express.json())
 
 [![Slide 14](./Images/Slide14.png)](./Images/Slide14.png)
 
@@ -280,7 +280,7 @@ app.post("/",(req, res)=>{
 })
 ```
 
-## Middleware and req.body
+## 📝 Middleware and req.body
 
 - req.query and req.headers dont require middleware because the represent the query parameters and headers of the incoming request , respectively. Express automatically parses them.
 
