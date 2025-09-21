@@ -288,7 +288,7 @@ app.post("/",(req, res)=>{
 
 - Middleware helps in processing the request at different stages and is essential for tasks like parsing , logging , authentication and more in a more modular and organized way
 
-  95 9# `# 🔹 3 Ways of Sending input to a Response
+# 🔹 3 Ways of Sending input to a Response
 
 ### Query Parameter:
 
@@ -373,12 +373,38 @@ app.use(function (err, req, res, next) {
 
 ```js
 // naive way
+const express = require("express");
 const app = express();
+
 app.use(express.json());
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (
+    !username ||
+    typeof username !== "string" ||
+    username.length < 3 ||
+    !password ||
+    typeof password !== "string" ||
+    password.length < 6
+  ) {
+    return res.status(400).json({
+      error: "Invalid Input",
+    });
+  }
+  res.json({ sucess: true });
+  //proceed with the authentication logic
+});
+
+const port = 3000;
+app.listen(PORT, () =>
+  console.log(`Server is listening on localhost port ${3000}`)
+);
 ```
 
 ```js
-// naive way
+//using zod
 const app = express();
 app.use(express.json());
 ```
