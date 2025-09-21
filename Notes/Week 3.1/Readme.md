@@ -13,14 +13,15 @@
 9. [Difference between res.send() and res.json()](#-difference-between-ressend-and-resjson)
 10. [Importance of app.use(express.json())](#-importance-of-appuseexpressjson)
 11. [Middleware and req.body](#-middleware-and-reqbody)
-12. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
-13. [The Need for Error Handling](#️-the-need-for-error-handling)
-14. [Global Error Handling Middleware](#️-global-error-handling-middleware)
-15. [Why Input Validation?](#-why-input-validation)
-16. [Zod for Input Validation](#-zod-for-input-validation)
-17. [Example: Zod Schema](#-example-zod-schema)
-18. [Combining Zod with Middleware](#-combining-zod-with-middleware)
-19. [Summary](#-summary)
+12. [3 Ways of Sending input to a Response](#-3-ways-of-sending-input-to-a-response)
+13. [Example: Counting Requests](#-example-counting-requests-middleware-use-case)
+14. [Why Input Validation?](#-why-input-validation)
+15. [The Need for Error Handling](#️-the-need-for-error-handling)
+16. [Global Error Handling Middleware](#️-global-error-handling-middleware)
+17. [Zod for Input Validation](#-zod-for-input-validation)
+18. [Example: Zod Schema](#-example-zod-schema)
+19. [Combining Zod with Middleware](#-combining-zod-with-middleware)
+20. [Summary](#-summary)
 
 ---
 
@@ -288,41 +289,34 @@ app.post("/",(req, res)=>{
 
 - Middleware helps in processing the request at different stages and is essential for tasks like parsing , logging , authentication and more in a more modular and organized way
 
+  95 9# `# 🔹 3 Ways of Sending input to a Response
+
+### Query Parameter:
+
+### Body
+
+### Headers
+
 ## 📊 Example: Counting Requests (Middleware Use Case)
 
 [![Slide 15](./Images/Slide15.png)](./Images/Slide15.png)
 
 ```js
 let numberOfRequests = 0;
-
-app.use((req, res, next) => {
+calculateRequests = (req, res, next) => {
   numberOfRequests++;
-  console.log("Total requests so far:", numberOfRequests);
+  console.log("Total request so far", numberOfRequests);
   next();
-});
-
+};
+app.use(calculateRequests);
+// everytime this route is called the CALCULLATEREQUESTS middleware will be called
 app.get("/", (req, res) => res.send("Hello World"));
-```
-
-## ⚠️ The Need for Error Handling
-
-[![Slide 16](./Images/Slide16.png)](./Images/Slide16.png)
-
-- Without global catches, one small bug (like dividing by zero) can crash the server.
-
-## 🛡️ Global Error Handling Middleware
-
-[![Slide 17](./Images/Slide17.png)](./Images/Slide17.png)
-Express lets you define a special middleware with 4 params:
-
-```js
-const app = express();
-app.use(express.json());
 ```
 
 ## 📏 Why Input Validation?
 
-[![Slide 18](./Images/Slide18.png)](./Images/Slide18.png)
+[![Slide 17](./Images/Slide17.png)](./Images/Slide17.png)
+
 Prevent invalid requests from reaching logic.
 
 Protect against crashes and bad data.
@@ -330,17 +324,51 @@ Protect against crashes and bad data.
 Example: missing username, invalid kidneyId, etc.
 
 ```js
+const express = require("express");
+
 const app = express();
-app.use(express.json());
+
+app.post("/health-checkup", function (req, res, next) {
+  const kidneys = req.body.kidneys;
+  const kidneysLength = req.body.kidneys.length;
+
+  res.send("you have" + kidneysLength + "kidneys");
+});
+
+app.listen(3000);
 ```
+
+## ⚠️ The Need for Error Handling
+
+[![Slide 18](./Images/Slide18.png)](./Images/Slide18.png)
+
+- Without global catches, one small bug (like dividing by zero) can crash the server.
+
+## 🛡️ Global Error Handling Middleware
+
+- This is a special type of midlleware function in Express that has four arguments instead of three `(err, req, res, next)`
+  [![Slide 18](./Images/Slide18.png)](./Images/Slide18.png)
+  [![Slide 19](./Images/Slide19.png)](./Images/Slide19.png)
+- Express lets you define a special middleware with 4 params:
+
+```js
+//Global caches
+app.use(function (err, req, res, next) {
+  res.json({
+    msg: "Sorry something is up with our server",
+  });
+});
+```
+
+[![Slide 19](./Images/Slide19.png)](./Images/Slide19.png)
 
 ## 🧰 Zod for Input Validation
 
-[![Slide 19](./Images/Slide19.png)](./Images/Slide19.png)
 [![Slide 20](./Images/Slide20.png)](./Images/Slide20.png)
 [![Slide 21](./Images/Slide21.png)](./Images/Slide21.png)
-Zod is a TypeScript-first validation library.
-It allows you to define schemas and validate incoming data easily.
+
+- Zod is a TypeScript-first validation library.
+- It allows you to define schemas and validate incoming data easily.
 
 ```js
 const app = express();
