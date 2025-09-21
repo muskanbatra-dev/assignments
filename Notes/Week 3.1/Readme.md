@@ -20,8 +20,7 @@
 16. [Global Error Handling Middleware](#️-global-error-handling-middleware)
 17. [Zod for Input Validation](#-zod-for-input-validation)
 18. [Example: Zod Schema](#-example-zod-schema)
-19. [Combining Zod with Middleware](#-combining-zod-with-middleware)
-20. [Summary](#-summary)
+19. [Summary](#-summary)
 
 ---
 
@@ -329,6 +328,7 @@ const express = require("express");
 const app = express();
 
 app.post("/health-checkup", function (req, res, next) {
+  // kidneys=[1,2] (in body)
   const kidneys = req.body.kidneys;
   const kidneysLength = req.body.kidneys.length;
 
@@ -367,31 +367,28 @@ app.use(function (err, req, res, next) {
 [![Slide 20](./Images/Slide20.png)](./Images/Slide20.png)
 [![Slide 21](./Images/Slide21.png)](./Images/Slide21.png)
 
-- Zod is a TypeScript-first validation library.
+- Zod is a TypeScript-first
+- schema validation library
 - It allows you to define schemas and validate incoming data easily.
 
 ```js
+// naive way
 const app = express();
 app.use(express.json());
 ```
 
-## ✅ Example: Zod Schema
+```js
+// naive way
+const app = express();
+app.use(express.json());
+```
+
+## ✅ Zod Syntax Overview
 
 [![Slide 22](./Images/Slide22.png)](./Images/Slide22.png)
 [![Slide 23](./Images/Slide23.png)](./Images/Slide23.png)
 [![Slide 24](./Images/Slide24.png)](./Images/Slide24.png)
 [![Slide 25](./Images/Slide25.png)](./Images/Slide25.png)
-
-```js
-const app = express();
-app.use(express.json());
-```
-
-## 🛡️ Combining Zod with Middleware
-
-[![Slide 26](./Images/Slide26.png)](./Images/Slide26.png)
-[![Slide 27](./Images/Slide27.png)](./Images/Slide27.png)
-[![Slide 28](./Images/Slide28.png)](./Images/Slide28.png)
 
 ```js
 const app = express();
