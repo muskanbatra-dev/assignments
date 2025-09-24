@@ -94,14 +94,20 @@ It returns a **Promise** that resolves to the `Response` object.
 
 [![data](./Images/data.png)](./Images/data.png)
 
-## ⚡ Asynchronous Concepts ### 1. Callback Functions #### 🔹 Basic Callback
+## ⚡ Asynchronous Concepts
 
-Example 
-``js function fetchData(callback) { setTimeout(() => { const message =
+### 1. Callback Functions
+
+#### 🔹 Basic Callback
+
+Example
+
+```js
+function fetchData(callback) { setTimeout(() => { const message =
 "Data received!"; callback(message); }, 2000); } fetchData((msg) =>
 console.log(msg)); ### 2. Promises `js const
 
-````
+```
 
 ### 3. Async/Await
 
@@ -164,4 +170,7 @@ const
 ## 🔄 fetch() vs axios()
 
 ## 💾 Databases
-````
+
+```
+
+```
