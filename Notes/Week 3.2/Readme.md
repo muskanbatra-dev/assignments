@@ -4,13 +4,18 @@ This document covers **asynchronous concepts in JavaScript**, **authentication m
 
 ---
 
-## 📌 Table of Contents
+# 📑 JavaScript, Authentication, and Databases Notes
+
+This document covers **asynchronous concepts in JavaScript**, **authentication methods**, and **databases** (with a focus on MongoDB).
+
+---
 
 ## 📌 Table of Contents
 
 1. [fetch() Method](#-fetch-method)
 2. [Asynchronous Concepts](#-asynchronous-concepts)
    - [Callback Functions](#1-callback-functions)
+     - [Basic Callback Example](#-basic-callback-example)
    - [Promises](#2-promises)
    - [Async/Await](#3-asyncawait)
    - [Try-Catch Blocks](#4-try-catch-blocks)
@@ -29,38 +34,74 @@ This document covers **asynchronous concepts in JavaScript**, **authentication m
    - [How Does the Backend Connect to the Database?](#how-does-the-backend-connect-to-the-database)
    - [Mongoose](#mongoose)
 
----
-
 ## 🚀 fetch() Method
 
-<details>
-<summary>Click to expand</summary>
+The `fetch()` method in JavaScript is used to make HTTP requests.  
+It returns a **Promise** that resolves to the `Response` object.
 
-The **fetch()** method in JavaScript is used to make HTTP requests.  
-It returns a **Promise** that resolves to the Response object.
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>replit</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
 
-```js
-fetch("https://api.example.com/data")
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
+  <body>
+    <script>
+      function getPersonData() {
+        fetch("https://fakerapi.it/api/v1/persons").then((response) => {
+          // response.json lets you log data in the json format
+          console.log(response.json());
+        });
+      }
+    </script>
+    <button onclick="getPersonData()">Click me</button>
+  </body>
+</html>
 ```
 
-## ⚡ Asynchronous Concepts
+[![Promise-Pending](./Images/Promise-Pending.png)](./Images/Promise-Pending.png)
 
-### 1. Callback Functions
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Replit</title>
+  </head>
 
-```js
+  <body>
+    <script>
+      function getPersonData() {
+        fetch("https://fakerapi.it/api/v1/persons")
+          .then((response) => response.json()) // convert to JSON
+          .then((data) => {
+            console.log(data); // log the actual data
+          });
+      }
+    </script>
 
-const
+    <button onclick="getPersonData()">Click me</button>
+  </body>
+</html>
 ```
 
-### 2. Promises
+[![Promise-fullfilled](./Images/Promise-fullfilled.png)](./Images/Promise-fullfilled.png)
 
-```js
+[![data](./Images/data.png)](./Images/data.png)
 
-const
-```
+## ⚡ Asynchronous Concepts ### 1. Callback Functions #### 🔹 Basic Callback
+
+Example 
+``js function fetchData(callback) { setTimeout(() => { const message =
+"Data received!"; callback(message); }, 2000); } fetchData((msg) =>
+console.log(msg)); ### 2. Promises `js const
+
+````
 
 ### 3. Async/Await
 
@@ -119,3 +160,8 @@ const
 
 const
 ```
+
+## 🔄 fetch() vs axios()
+
+## 💾 Databases
+````
