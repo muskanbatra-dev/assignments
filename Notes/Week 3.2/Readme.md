@@ -98,7 +98,7 @@ It returns a **Promise** that resolves to the `Response` object.
 
 ### 1. Callback Functions
 
-#### 🔹 Basic Callback
+#### 🔹 Basic Callback Example
 
 Example
 
