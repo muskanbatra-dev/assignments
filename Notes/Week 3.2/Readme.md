@@ -28,10 +28,10 @@ This document covers **asynchronous concepts in JavaScript**, **authentication m
    - [Cookies vs. Local Storage](#6-cookies-vs-local-storage-for-storing-jwt-tokens)
 4. [fetch() vs axios()](#-fetch-vs-axios)
 5. [Databases](#-databases)
-   - [Types of Databases](#types-of-databases)
-   - [MongoDB](#mongodb)
+   - [Types of Databazses](#types-of-databases)
+   - [MongoDB](#mongodb)zˀ
    - [Creating a Free MongoDB Instance](#creating-a-free-mongodb-instance)
-   - [How Does the Backend Connect to the Database?](#how-does-the-backend-connect-to-the-database)
+ zaxs   - [How  qa  Does the Backend Connect to the Database?](#how-does-the-backend-connect-to-the-database)
    - [Mongoose](#mongoose)
 
 ## 🚀 fetch() Method
