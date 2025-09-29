@@ -31,7 +31,7 @@ This document covers **asynchronous concepts in JavaScript**, **authentication m
    - [Types of Databazses](#types-of-databases)
    - [MongoDB](#mongodb)zˀ
    - [Creating a Free MongoDB Instance](#creating-a-free-mongodb-instance)
- zaxs   - [How  qa  Does the Backend Connect to the Database?](#how-does-the-backend-connect-to-the-database)
+     zaxs - [How qa Does the Backend Connect to the Database?](#how-does-the-backend-connect-to-the-database)
    - [Mongoose](#mongoose)
 
 ## 🚀 fetch() Method
@@ -102,23 +102,110 @@ It returns a **Promise** that resolves to the `Response` object.
 
 Example
 
-```js
-function fetchData(callback) { setTimeout(() => { const message =
-"Data received!"; callback(message); }, 2000); } fetchData((msg) =>
-console.log(msg)); ### 2. Promises `js const
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Callback Example</title>
+  </head>
 
+  <body>
+    <script>
+      function getPersonData() {
+        fetch("https://fakerapi.it/api/v1/persons")
+          .then((response) => response.json()) // convert to JSON
+          .then((data) => {
+            console.log(data); // log the actual data
+          });
+      }
+    </script>
+
+    <button onclick="getPersonData()">Click me</button>
+  </body>
+</html>
 ```
+
+### 2. Promises
+
+````html
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>replit</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <script>
+      function getPersonData() {
+        fetch("https://fakerapi.it/api/v1/persons").then((response) => {
+          // response.json lets you log data in the json format
+          console.log(response.json());
+        });
+      }
+    </script>
+    <button onclick="getPersonData()">Click me</button>
+  </body>
+</html>
+````
 
 ### 3. Async/Await
 
-```js
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Replit</title>
+  </head>
 
-const
+  <body>
+    <script>
+      async function getPersonData() {
+        const response = await fetch("https://fakerapi.it/api/v1/persons");
+        const data = await response.json(); // convert to JSON
+        console.log(data); // log the actual data
+      }
+    </script>
+
+    <button onclick="getPersonData()">Click me</button>
+  </body>
+</html>
 ```
 
 ### 4. Try-Catch Blocks
 
-```js
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Replit</title>
+  </head>
+
+  <body>
+    <script>
+      async function getPersonData() {
+        try {
+          const response = await fetch("https://fakerapi.it/api/v1/persons");
+          const data = await response.json(); // convert to JSON
+          console.log(data); // log the actual data
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    </script>
+
+    <button onclick="getPersonData()">Click me</button>
+  </body>
+</html>
 
 const
 ```
