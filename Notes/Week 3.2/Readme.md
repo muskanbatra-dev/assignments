@@ -23,15 +23,18 @@ This document covers **asynchronous concepts in JavaScript**, **authentication m
    - [Hashing](#1-hashing)
    - [Encryption](#2-encryption)
    - [JSON Web Tokens (JWT)](#3-json-web-tokens-jwt)
-   - [Local Storage](#4-local-storage)
-   - [Authorization Header](#5-authorization-header)
-   - [Cookies vs. Local Storage](#6-cookies-vs-local-storage-for-storing-jwt-tokens)
-4. [fetch() vs axios()](#-fetch-vs-axios)
-5. [Databases](#-databases)
-   - [Types of Databazses](#types-of-databases)
-   - [MongoDB](#mongodb)zˀ
+     - [Token Creation (`jwt.sign`)](#-token-creation-jwtsign)
+     - [Decoding (Anyone can do it)](#-decoding-anyone-can-do-it)
+     - [Verification (Only backend can do it)](#-verification-only-backend-can-do-it)
+   - [Local Storage](#local-storage)
+   - [Authorization Header](#authorization-header)
+   - [Cookies vs. Local Storage](#cookies-vs-local-storage)
+4. [fetch() vs axios()](#fetch-vs-axios)
+5. [Databases](#databases)
+   - [Types of Databases](#types-of-databases)
+   - [MongoDB](#mongodb)
    - [Creating a Free MongoDB Instance](#creating-a-free-mongodb-instance)
-     zaxs - [How qa Does the Backend Connect to the Database?](#how-does-the-backend-connect-to-the-database)
+   - [How Does the Backend Connect to the Database?](#how-does-the-backend-connect-to-the-database)
    - [Mongoose](#mongoose)
 
 ## 🚀 fetch() Method
@@ -220,12 +223,21 @@ const
 
 ### 1. Hashing
 
+[![Hashing](./Images/Hashing.png)](./Images/Hashing.png)
+
+- Hashing is one way.
+  [![Slide 8](./Images/Slide8.png)](./Images/Slide8.png)
+  [![Slide 9](./Images/Slide9.png)](./Images/Slide9.png)
+
 ```js
 
 const
 ```
 
 ### 2. Encryption
+
+- Encryption is two way.
+  [![Slide 10](./Images/Slide10.png)](./Images/Slide10.png)
 
 ```js
 
@@ -234,9 +246,59 @@ const
 
 ### 3. JSON Web Tokens (JWT)
 
-```js
+[![Slide 11](./Images/Slide11.png)](./Images/Slide11.png)
+[![Jwt](./Images/Jwt.png)](./Images/Jwt.png)
 
-const
+# 🔑 How JWT Works
+
+#### 🔹 Token Creation (`jwt.sign`)
+
+- The backend takes some JSON data (payload) like:
+
+```json
+{ "id": 123, "email": "muskan@example.com" }
+```
+
+- It encodes the header + payload into Base64URL format.
+- Then it creates a signature using a secret/private key.
+- Final token format = header.payload.signature.
+  const jwt = require("jsonwebtoken");
+
+```js
+const token = jwt.sign({ id: 123, email: "muskan@example.com" }, "mysecret", {
+  expiresIn: "1h",
+});
+
+console.log(token);
+```
+
+#### 🔹 Decoding (Anyone can do it)
+
+- The header and payload are just Base64URL encoded JSON.
+
+- Anyone can decode and see what’s inside.
+
+- ⚠️ Never store passwords or other sensitive secrets in JWT payloads.
+
+```js
+const decoded = jwt.decode(token);
+console.log(decoded);
+// { id: 123, email: "...", iat: ..., exp: ... }
+```
+
+#### 🔹 Verification (Only backend can do it)
+
+- To check if a JWT is valid, the backend uses the same secret/private key with jwt.verify.
+
+- This ensures the token wasn’t tampered with.
+
+```js
+try {
+  const verified = jwt.verify(token, "mysecret");
+  console.log("Verified:", verified);
+} catch (err) {
+  console.log("Invalid or expired token");
+}
 ```
 
 ### 4. Local Storage
