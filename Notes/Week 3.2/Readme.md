@@ -28,6 +28,7 @@ This document covers **asynchronous concepts in JavaScript**, **authentication m
      - [Verification (Only backend can do it)](#-verification-only-backend-can-do-it)
    - [Local Storage](#local-storage)
      - [Where Is The Token Stored](#-where-is-the-token-stored)
+     - [Lets Start By Creating The Assignment](#-lets-start-by-creating-the-assignment)
    - [Authorization Header](#authorization-header)
    - [Cookies vs. Local Storage](#cookies-vs-local-storage)
 4. [fetch() vs axios()](#fetch-vs-axios)
@@ -311,6 +312,80 @@ try {
 ```js
 
 const
+```
+
+#### 🔹 Lets Start By Creating The Assignment
+
+[![Slide 13](./Images/Slide13.png)](./Images/Slide13.png)
+
+```js
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const jwtPassword = "123456";
+
+const app = express();
+
+const ALL_USERS = [
+  {
+    username: "harkirat@gmail.com",
+    password: "123",
+    name: "harkirat singh",
+  },
+  {
+    username: "raman@gmail.com",
+    password: "123321",
+    name: "Raman singh",
+  },
+  {
+    username: "priya@gmail.com",
+    password: "123321",
+    name: "Priya kumari",
+  },
+];
+
+function userExists(username, password) {
+  // write logic to return true or false if this user exists
+  // in ALL_USERS array
+}
+
+app.post("/signin", function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (!userExists(username, password)) {
+    return res.status(403).json({
+      msg: "User doesnt exist in our in memory db",
+    });
+  }
+
+  var token = jwt.sign({ username: username }, "shhhhh");
+  return res.json({
+    token,
+  });
+});
+
+app.get("/users", function (req, res) {
+  const token = req.headers.authorization;
+  try {
+    const decoded = jwt.verify(token, jwtPassword);
+    const username = decoded.username;
+    // return a list of users other than this username
+  } catch (err) {
+    return res.status(403).json({
+      msg: "Invalid token",
+    });
+  }
+});
+
+app.listen(3000);
+```
+
+## ANSWER
+
+```js
+function userExists(username, password) {
+  
+}
 ```
 
 ### 5. Authorization Header
