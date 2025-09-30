@@ -27,6 +27,7 @@ This document covers **asynchronous concepts in JavaScript**, **authentication m
      - [Decoding (Anyone can do it)](#-decoding-anyone-can-do-it)
      - [Verification (Only backend can do it)](#-verification-only-backend-can-do-it)
    - [Local Storage](#local-storage)
+     - [Where Is The Token Stored](#-where-is-the-token-stored)
    - [Authorization Header](#authorization-header)
    - [Cookies vs. Local Storage](#cookies-vs-local-storage)
 4. [fetch() vs axios()](#fetch-vs-axios)
@@ -302,6 +303,10 @@ try {
 ```
 
 ### 4. Local Storage
+
+#### 🔹 Where Is The Token Stored
+
+[![Slide 12](./Images/Slide12.png)](./Images/Slide12.png)
 
 ```js
 
