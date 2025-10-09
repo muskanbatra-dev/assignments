@@ -88,7 +88,13 @@ This repository contains lecture notes and examples from **Week 19.1**, covering
 
 ## Backend Communication
 
+- Backend Communication refers to the exchange of data and coordination between different backend systems or components within an application architecture
+- It is required because mordern application often have complex requirements that cannot be fullfilled by a single monolithic backend system
+- They rely on multiple specialized backend services or microsservices that handle different aspect of the application's functionality
+
 ### Why Do We Need?
+
+- To implement microservices asrchitechture for apllications
 
 ### General Backend Communication
 
