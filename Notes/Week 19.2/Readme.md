@@ -49,3 +49,191 @@
 13. [Pub/Subs in Node.js](#pubsubs-in-nodejs)
     - [Publishing Submission Status](#publishing-submission-status)
     - [Subscribing to a Channel](#subscribing-to-a-channel)
+
+---
+
+## Introduction
+
+### Overview
+
+<!-- Add your notes here -->
+
+### Practical Implementations Using Node.js
+
+<!-- Add your notes here -->
+
+---
+
+## Queues, Pub/Sub, and Redis
+
+### Vulnerabilities of Running User Code on the Primary Backend
+
+<!-- Add your notes here -->
+
+---
+
+## Part 1: Queues
+
+### Load Balancing
+
+<!-- Add your notes here -->
+
+### Scalability
+
+<!-- Add your notes here -->
+
+### Fault Tolerance
+
+<!-- Add your notes here -->
+
+### Asynchronous Processing
+
+<!-- Add your notes here -->
+
+### Queue Implementation
+
+<!-- Add your notes here -->
+
+---
+
+## Part 2: Pub/Sub
+
+### Publish-Subscribe Model
+
+<!-- Add your notes here -->
+
+### Real-Time Communication Use Cases
+
+<!-- Add your notes here -->
+
+---
+
+## Understanding Redis
+
+### Caching
+
+<!-- Add your notes here -->
+
+### Pub/Sub
+
+<!-- Add your notes here -->
+
+### Queuing
+
+<!-- Add your notes here -->
+
+### Leaderboards and Ranking
+
+<!-- Add your notes here -->
+
+### Session Management
+
+<!-- Add your notes here -->
+
+---
+
+## Final Architecture
+
+### Benefits of the Architecture
+
+<!-- Add your notes here -->
+
+---
+
+## Redis Deep Dive
+
+### In-Memory Data Structure Store
+
+<!-- Add your notes here -->
+
+### Persistence Options
+
+<!-- Add your notes here -->
+
+#### RDB (Redis Database File)
+
+<!-- Add your notes here -->
+
+#### AOF (Append Only File)
+
+<!-- Add your notes here -->
+
+---
+
+## Starting Redis Locally
+
+### Start Redis Container
+
+<!-- Add your notes here -->
+
+### Connect to the Container
+
+<!-- Add your notes here -->
+
+### Connect to the Redis CLI
+
+<!-- Add your notes here -->
+
+---
+
+## Redis as a Database
+
+### SET / GET / DEL
+
+<!-- Add your notes here -->
+
+### HSET / HGET / HDEL (Hashes)
+
+<!-- Add your notes here -->
+
+---
+
+## Redis as a Queue
+
+### Pushing to a Queue
+
+<!-- Add your notes here -->
+
+### Popping from a Queue
+
+<!-- Add your notes here -->
+
+### Blocked Pop
+
+<!-- Add your notes here -->
+
+---
+
+## Talking to Redis via Node.js
+
+### Express Server
+
+<!-- Add your notes here -->
+
+### Worker Service
+
+<!-- Add your notes here -->
+
+---
+
+## Pub/Sub Deep Dive
+
+### Subscribe to a Topic
+
+<!-- Add your notes here -->
+
+### Publishing to a Topic
+
+<!-- Add your notes here -->
+
+---
+
+## Pub/Subs in Node.js
+
+### Publishing Submission Status
+
+<!-- Add your notes here -->
+
+### Subscribing to a Channel
+
+<!-- Add your notes here -->

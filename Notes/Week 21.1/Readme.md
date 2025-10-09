@@ -83,3 +83,167 @@
   - [Moving Your Domain to Cloudflare](#moving-your-domain-to-cloudflare)
   - [Proxying DNS Records via Cloudflare](#proxying-dns-records-via-cloudflare)
   - [Leveraging Cloudflare’s Global Network for DDoS Protection](#leveraging-cloudflares-global-network-for-ddos-protection)
+
+---
+
+# 1. Introduction
+
+## What is Rate Limiting
+
+_(Content here)_
+
+## Why Rate Limiting is Crucial
+
+### Preventing Overload
+
+_(Content here)_
+
+### Mitigating Abuse
+
+_(Content here)_
+
+### Managing Traffic
+
+_(Content here)_
+
+### DDoS Protection
+
+_(Content here)_
+
+### Cost Optimization
+
+_(Content here)_
+
+# 2. Applying Rate Limiting
+
+## Password Reset Endpoints
+
+_(Content here)_
+
+## Login Endpoints
+
+_(Content here)_
+
+## Sign-up/Registration Endpoints
+
+_(Content here)_
+
+## API Endpoints
+
+_(Content here)_
+
+## Sensitive Operations
+
+_(Content here)_
+
+## High-Traffic Endpoints
+
+_(Content here)_
+
+## General Considerations
+
+_(Content here)_
+
+# 3. Implementing a Simple Reset Password Endpoint
+
+## Initializing a TypeScript Project
+
+_(Content here)_
+
+## Updating `tsconfig.json`
+
+_(Content here)_
+
+## Installing Dependencies
+
+_(Content here)_
+
+## Creating the Express Server
+
+_(Content here)_
+
+## `/generate-otp` Endpoint
+
+_(Content here)_
+
+## `/reset-password` Endpoint
+
+_(Content here)_
+
+## Testing with Postman
+
+_(Content here)_
+
+# 4. Exploiting the Endpoint
+
+## Exporting Node.js Code from Postman
+
+_(Content here)_
+
+## Creating a New Project
+
+_(Content here)_
+
+## Installing Dependencies
+
+_(Content here)_
+
+## Adding Brute Force Logic
+
+_(Content here)_
+
+## Running the Exploit
+
+_(Content here)_
+
+## Observing the Lack of Rate Limiting
+
+_(Content here)_
+
+# 5. Exploiting in Production
+
+## Accessing the Live Website
+
+_(Content here)_
+
+## Copying Requests via Network Tab
+
+_(Content here)_
+
+## Updating the Exploit Script
+
+_(Content here)_
+
+## Observing Rate Limiting in Production
+
+_(Content here)_
+
+# 6. Securing the Endpoint
+
+## Installing `express-rate-limit`
+
+_(Content here)_
+
+## Adding Rate Limiting to `/generate-otp`
+
+_(Content here)_
+
+## Adding Rate Limiting to `/reset-password`
+
+_(Content here)_
+
+## Explanation of Rate Limiter Configuration
+
+_(Content here)_
+
+## Benefits of Rate Limiting
+
+_(Content here)_
+
+# 7. Issues With Rate Limiting
+
+## Limitations Against DDoS Attacks
+
+_(Content here)_
+
+## Why Attackers Pe
